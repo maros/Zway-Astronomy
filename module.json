@@ -23,7 +23,7 @@
             },
             "longitude": {
                 "type": "string"
-            },
+            }
         },
         "required": true
     },
