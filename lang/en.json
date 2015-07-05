@@ -2,5 +2,8 @@
   "title": "Astronomy widget",
   "description": "Calculates the position of the sun and moon for the given location",
   "latitude": "Latitude",
-  "longitude": "Longitude"
+  "longitude": "Longitude",
+  "day": "Day",
+  "night": "Night"
+  
 }

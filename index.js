@@ -28,7 +28,10 @@ Astronomy.prototype.init = function (config) {
     
     var self = this;
     
-    this.latitude = config.location.toString();
+    // See https://github.com/mourner/suncalc
+    executeFile("lib/suncalc.js");
+    
+    this.latitude = config.latitude.toString();
     this.longitude = config.longitude.toString();
     
     this.vDev = this.controller.devices.create({
@@ -41,8 +44,7 @@ Astronomy.prototype.init = function (config) {
         },
         overlay: {
             metrics: {
-                scaleTitle: "°",
-                title: "Sun"
+                scaleTitle: "°"
             }
         },
         moduleId: this.id
@@ -50,7 +52,7 @@ Astronomy.prototype.init = function (config) {
     
     this.timer = setInterval(function() {
         self.updateCalculation(self);
-    }, 60*2*1000);
+    }, 60*1000);
     self.updateCalculation(self);
 };
 
@@ -68,7 +70,26 @@ Astronomy.prototype.stop = function () {
 // ----------------------------------------------------------------------------
 
 Astronomy.prototype.updateCalculation = function (instance) {
-    // See https://github.com/mourner/suncalc
+    var self = instance;
+    var langFile = self.controller.loadModuleLang("Astronomy");
+    
+    var position = SunCalc.getPosition(new Date(), self.config.latitude, self.config.longitude);
+    var times = SunCalc.getTimes(new Date(), self.config.latitude, self.config.longitude);
+    var azimuth = position.azimuth * 180 / Math.PI;
+    var altitude = position.altitude * 180 / Math.PI;
+    
+    if (position.altitude > -2) {
+        self.vDev.set("metrics:title",langFile.night);
+        self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/night.png");
+    } else {
+        self.vDev.set("metrics:title",langFile.day);
+        self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/day.png");
+    }
+    self.vDev.set("metrics:level",altitude);
+    self.vDev.set("metrics:azimuth",azimuth);
+    self.vDev.set("metrics:altitude",altitude);
+    self.vDev.set("metrics:sunrise",times.sunrise.value);
+    self.vDev.set("metrics:sunset",times.sunset.value);
 };
 
 
