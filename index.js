@@ -70,6 +70,7 @@ Astronomy.prototype.stop = function () {
     _.each(['sunrise','sunset'],function(key) {
         if (typeof(self[key+'Timer']) !== 'null') {
             self.clearTimeout(self[key+'Timer']);
+            self[key+'Timer'] = null;
         }
     });
 };
@@ -87,6 +88,7 @@ Astronomy.prototype.updateCalculation = function () {
     var azimuth     = position.azimuth * 180 / Math.PI;
     var altitude    = position.altitude * 180 / Math.PI;
     
+    console.log("Astronomy calculation");
     if (position.altitude > -2) {
         self.vDev.set("metrics:title",langFile.night);
         self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/night.png");
@@ -106,18 +108,20 @@ Astronomy.prototype.updateCalculation = function () {
     });
     
     _.each(['sunrise','sunset'],function(key) {
-        if (typeof(self[key+'Timer']) === 'null') {
-            var diff = now.getTime() - times[key].getTime();
+        if (typeof(self[key+'Timer']) !== 'number') {
+            var diff = times[key].getTime() - now.getTime();
             if (diff > 0) {
-                self[key+'Timer'] = setTimeout(function() { self.event(key); },diff);
+                console.log("Install "+key+" timer in "+diff);
+                self[key+'Timer'] = setTimeout(function() { self.callEvent(key); },diff);
             }
         }
     });
 };
 
-Astronomy.prototype.updateCalculation = function (event) {
-   delete this[event+'Timer'];
-   this.controller.emit("astronomy."+event);
+Astronomy.prototype.callEvent = function (event) {
+    console.log("Astronomy event "+event);
+    this[event+'Timer'] = null;
+    this.controller.emit("astronomy."+event);
 };
 
  
