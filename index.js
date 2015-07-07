@@ -55,10 +55,11 @@ Astronomy.prototype.init = function (config) {
     this.timer = setInterval(function() {
         self.updateCalculation(self);
     }, 60*1000);
-    self.updateCalculation(self);
+    self.updateCalculation();
 };
 
 Astronomy.prototype.stop = function () {
+    var self = this;
     Astronomy.super_.prototype.stop.call(this);
     
     if (this.vDev) {
@@ -71,14 +72,14 @@ Astronomy.prototype.stop = function () {
 // --- Module methods
 // ----------------------------------------------------------------------------
 
-Astronomy.prototype.updateCalculation = function (instance) {
-    var self = instance;
     var langFile = self.controller.loadModuleLang("Astronomy");
     
     var position = SunCalc.getPosition(new Date(), self.config.latitude, self.config.longitude);
     var times = SunCalc.getTimes(new Date(), self.config.latitude, self.config.longitude);
     var azimuth = position.azimuth * 180 / Math.PI;
     var altitude = position.altitude * 180 / Math.PI;
+Astronomy.prototype.updateCalculation = function () {
+    var self        = this;
     
     if (position.altitude > -2) {
         self.vDev.set("metrics:title",langFile.night);
