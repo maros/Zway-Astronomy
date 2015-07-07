@@ -29,10 +29,12 @@ Astronomy.prototype.init = function (config) {
     var self = this;
     
     // See https://github.com/mourner/suncalc
-    executeFile("lib/suncalc.js");
+    executeFile("modules/Astronomy/suncalc.js");
     
     this.latitude = config.latitude.toString();
     this.longitude = config.longitude.toString();
+    this.sunsetTimer = null;
+    this.sunriseTimer = null;
     
     this.vDev = this.controller.devices.create({
         deviceId: "Astronomy_"+this.id,
