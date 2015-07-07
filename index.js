@@ -66,20 +66,26 @@ Astronomy.prototype.stop = function () {
         this.controller.devices.remove(this.vDev.id);
         this.vDev = null;
     }
+    
+    _.each(['sunrise','sunset'],function(key) {
+        if (typeof(self[key+'Timer']) !== 'null') {
+            self.clearTimeout(self[key+'Timer']);
+        }
+    });
 };
 
 // ----------------------------------------------------------------------------
 // --- Module methods
 // ----------------------------------------------------------------------------
 
-    var langFile = self.controller.loadModuleLang("Astronomy");
-    
-    var position = SunCalc.getPosition(new Date(), self.config.latitude, self.config.longitude);
-    var times = SunCalc.getTimes(new Date(), self.config.latitude, self.config.longitude);
-    var azimuth = position.azimuth * 180 / Math.PI;
-    var altitude = position.altitude * 180 / Math.PI;
 Astronomy.prototype.updateCalculation = function () {
     var self        = this;
+    var langFile    = self.controller.loadModuleLang("Astronomy");
+    var now         = new Date();
+    var position    = SunCalc.getPosition(now, self.config.latitude, self.config.longitude);
+    var times       = SunCalc.getTimes(now, self.config.latitude, self.config.longitude);
+    var azimuth     = position.azimuth * 180 / Math.PI;
+    var altitude    = position.altitude * 180 / Math.PI;
     
     if (position.altitude > -2) {
         self.vDev.set("metrics:title",langFile.night);
@@ -93,7 +99,25 @@ Astronomy.prototype.updateCalculation = function () {
     self.vDev.set("metrics:altitude",altitude);
     self.vDev.set("metrics:sunrise",times.sunrise.value);
     self.vDev.set("metrics:sunset",times.sunset.value);
+    
+    this.controller.emit("astronomy.setPos", {
+        azimuth: azimuth,
+        altitude: altitude
+    });
+    
+    _.each(['sunrise','sunset'],function(key) {
+        if (typeof(self[key+'Timer']) === 'null') {
+            var diff = now.getTime() - times[key].getTime();
+            if (diff > 0) {
+                self[key+'Timer'] = setTimeout(function() { self.event(key); },diff);
+            }
+        }
+    });
 };
 
+Astronomy.prototype.updateCalculation = function (event) {
+   delete this[event+'Timer'];
+   this.controller.emit("astronomy."+event);
+};
 
  
