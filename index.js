@@ -89,7 +89,7 @@ Astronomy.prototype.updateCalculation = function () {
     var altitude    = position.altitude * 180 / Math.PI;
     
     console.log("Astronomy calculation");
-    if (position.altitude < -2) {
+    if (altitude < -2) {
         self.vDev.set("metrics:title",langFile.night);
         self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/night.png");
     } else {
