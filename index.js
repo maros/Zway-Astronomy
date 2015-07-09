@@ -9,7 +9,6 @@ Description:
 
 ******************************************************************************/
 
-
 function Astronomy (id, controller) {
     // Call superconstructor first (AutomationModule)
     Astronomy.super_.call(this, id, controller);
@@ -68,9 +67,9 @@ Astronomy.prototype.stop = function () {
     }
     
     _.each(['sunrise','sunset'],function(key) {
-        if (typeof(self[key+'Timer']) !== 'null') {
-            self.clearTimeout(self[key+'Timer']);
-            self[key+'Timer'] = null;
+        if (typeof(self[key+'Timeout']) !== 'null') {
+            self.clearTimeout(self[key+'Timeout']);
+            self[key+'Timeout'] = null;
         }
     });
 };
@@ -99,8 +98,8 @@ Astronomy.prototype.updateCalculation = function () {
     self.vDev.set("metrics:level",altitude);
     self.vDev.set("metrics:azimuth",azimuth);
     self.vDev.set("metrics:altitude",altitude);
-    self.vDev.set("metrics:sunrise",times.sunrise.value);
-    self.vDev.set("metrics:sunset",times.sunset.value);
+    self.vDev.set("metrics:sunrise",times.sunrise);
+    self.vDev.set("metrics:sunset",times.sunset);
     
     this.controller.emit("astronomy.setPos", {
         azimuth: azimuth,
@@ -108,11 +107,11 @@ Astronomy.prototype.updateCalculation = function () {
     });
     
     _.each(['sunrise','sunset'],function(key) {
-        if (typeof(self[key+'Timer']) !== 'number') {
+        if (typeof(self[key+'Timeout']) !== 'number') {
             var diff = times[key].getTime() - now.getTime();
             if (diff > 0) {
-                console.log("Install "+key+" timer in "+diff);
-                self[key+'Timer'] = setTimeout(function() { self.callEvent(key); },diff);
+                console.log("Install "+key+" timeout in "+diff);
+                self[key+'Timeout'] = setTimeout(function() { self.callEvent(key); },diff);
             }
         }
     });
@@ -120,7 +119,7 @@ Astronomy.prototype.updateCalculation = function () {
 
 Astronomy.prototype.callEvent = function (event) {
     console.log("Astronomy event "+event);
-    this[event+'Timer'] = null;
+    this[event+'Timeout'] = null;
     this.controller.emit("astronomy."+event);
 };
 
