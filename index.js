@@ -67,8 +67,8 @@ Astronomy.prototype.stop = function () {
     }
     
     _.each(['sunrise','sunset'],function(key) {
-        if (typeof(self[key+'Timeout']) !== 'null') {
-            self.clearTimeout(self[key+'Timeout']);
+        if (typeof(self[key+'Timeout']) === 'number') {
+            clearTimeout(self[key+'Timeout']);
             self[key+'Timeout'] = null;
         }
     });
