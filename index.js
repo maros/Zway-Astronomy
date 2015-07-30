@@ -40,7 +40,7 @@ Astronomy.prototype.init = function (config) {
         defaults: {
             deviceType: "sensorMultilevel",
             metrics: {
-                probeTitle: 'Sun Altitude'
+                title: this.config.title
             }
         },
         overlay: {
@@ -80,7 +80,7 @@ Astronomy.prototype.stop = function () {
 
 Astronomy.prototype.updateCalculation = function () {
     var self        = this;
-    var langFile    = self.controller.loadModuleLang("Astronomy");
+    //var langFile    = self.controller.loadModuleLang("Astronomy");
     var now         = new Date();
     var position    = SunCalc.getPosition(now, self.config.latitude, self.config.longitude);
     var times       = SunCalc.getTimes(now, self.config.latitude, self.config.longitude);
@@ -89,10 +89,10 @@ Astronomy.prototype.updateCalculation = function () {
     
     console.log("Astronomy calculation");
     if (altitude < -2) {
-        self.vDev.set("metrics:title",langFile.night);
+        //self.vDev.set("metrics:title",langFile.night);
         self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/night.png");
     } else {
-        self.vDev.set("metrics:title",langFile.day);
+        //self.vDev.set("metrics:title",langFile.day);
         self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/day.png");
     }
     self.vDev.set("metrics:level",altitude);
