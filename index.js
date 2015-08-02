@@ -30,17 +30,18 @@ Astronomy.prototype.init = function (config) {
     // See https://github.com/mourner/suncalc
     executeFile("modules/Astronomy/suncalc.js");
     
-    this.latitude = config.latitude.toString();
-    this.longitude = config.longitude.toString();
-    this.sunsetTimer = null;
-    this.sunriseTimer = null;
+    this.latitude       = config.latitude.toString();
+    this.longitude      = config.longitude.toString();
+    this.sunsetTimer    = null;
+    this.sunriseTimer   = null;
+    var langFile        = self.controller.loadModuleLang("Astronomy");
     
     this.vDev = this.controller.devices.create({
         deviceId: "Astronomy_"+this.id,
         defaults: {
             deviceType: "sensorMultilevel",
             metrics: {
-                title: this.config.title
+                title: langFile.title
             }
         },
         overlay: {
