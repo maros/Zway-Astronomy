@@ -67,6 +67,8 @@ Astronomy.prototype.stop = function () {
         this.vDev = null;
     }
     
+    clearTimeout(this.timer);
+    
     _.each(['sunrise','sunset'],function(key) {
         if (typeof(self[key+'Timeout']) === 'number') {
             clearTimeout(self[key+'Timeout']);
