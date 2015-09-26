@@ -15,14 +15,55 @@ above the horizon in degrees. Additionally the following metrics are set
 
 *    metrics:azimuth: Sun position degrees
 *    metrics:altitude: Altitude above horizont
-*    metrics:sunrise: Todays sunrise as unix timestamp (may be past)
-*    metrics:sunset: Todays sunset as unix timestamp (may be past)
+*    metrics:sunrise: Top edge of the sun appears on the horizon
+*    metrics:sunriseEnd: Bottom edge of the sun touches the horizon
+*    metrics:goldenHourEnd: Morning golden hour ends
+*    metrics:solarNoon: Sun is in the highest position
+*    metrics:goldenHour: Evening golden hour starts
+*    metrics:sunsetStart: Bottom edge of the sun touches the horizon
+*    metrics:sunset: Sun disappears below the horizon, evening civil twilight starts
+*    metrics:dusk: Evening nautical twilight starts
+*    metrics:nauticalDusk: Evening astronomical twilight starts
+*    metrics:night: Night starts.dark enough for astronomical observations
+*    metrics:nadir: Darkest moment of the night, sun is in the lowest position
+*    metrics:nightEnd: Night ends. Morning astronomical twilight starts
+*    metrics:nauticalDawn: Morning nautical twilight starts)
+*    metrics:dawn: Morning nautical twilight ends, morning civil twilight starts
+
+All metrics except azimuth and altitude are stored as JavaScript Date objects,
+and may lay in the past since they are calculated for the current day.
 
 # Events
+
+## astronomy.setPos - Called whenever azimuth and altitude are recalculated
 
 ## astronomy.sunrise
 
 ## astronomy.sunset
+
+## astronomy.sunriseEnd
+
+## astronomy.goldenHourEnd
+
+## astronomy.solarNoon
+
+## astronomy.goldenHour
+
+## astronomy.sunsetStart
+
+## astronomy.dusk
+
+## astronomy.nauticalDusk
+
+## astronomy.night
+
+## astronomy.nadir
+
+## astronomy.nightEnd
+
+## astronomy.nauticalDawn
+
+## astronomy.dawn
 
 # License
 

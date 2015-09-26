@@ -22,6 +22,23 @@ _module = Astronomy;
 // --- Module instance initialized
 // ----------------------------------------------------------------------------
 
+Astronomy.prototype.events = [
+    'sunrise',          // sunrise (top edge of the sun appears on the horizon)
+    'sunriseEnd',       // sunrise ends (bottom edge of the sun touches the horizon)
+    'goldenHourEnd',    // morning golden hour (soft light, best time for photography) ends
+    'solarNoon',        // solar noon (sun is in the highest position)
+    'goldenHour',       // evening golden hour starts
+    'sunsetStart',      // sunset starts (bottom edge of the sun touches the horizon)
+    'sunset',           // sunset (sun disappears below the horizon, evening civil twilight starts)
+    'dusk',             // dusk (evening nautical twilight starts)
+    'nauticalDusk',     // nautical dusk (evening astronomical twilight starts)
+    'night',            // night starts (dark enough for astronomical observations)
+    'nadir',            // nadir (darkest moment of the night, sun is in the lowest position)
+    'nightEnd',         // night ends (morning astronomical twilight starts)
+    'nauticalDawn',     // nautical dawn (morning nautical twilight starts)
+    'dawn'              // dawn (morning nautical twilight ends, morning civil twilight starts)
+];
+
 Astronomy.prototype.init = function (config) {
     Astronomy.super_.prototype.init.call(this, config);
     
@@ -32,9 +49,10 @@ Astronomy.prototype.init = function (config) {
     
     this.latitude       = config.latitude.toString();
     this.longitude      = config.longitude.toString();
-    this.sunsetTimer    = null;
-    this.sunriseTimer   = null;
     var langFile        = self.controller.loadModuleLang("Astronomy");
+    _.each(self.events,function(event) {
+        self[event+'Timer'] = null;
+    });
     
     this.vDev = this.controller.devices.create({
         deviceId: "Astronomy_"+this.id,
@@ -69,10 +87,10 @@ Astronomy.prototype.stop = function () {
     
     clearTimeout(this.timer);
     
-    _.each(['sunrise','sunset'],function(key) {
-        if (typeof(self[key+'Timeout']) === 'number') {
-            clearTimeout(self[key+'Timeout']);
-            self[key+'Timeout'] = null;
+    _.each(self.events,function(event) {
+        if (typeof(self[event+'Timeout']) === 'number') {
+            clearTimeout(self[event+'Timeout']);
+            self[event+'Timeout'] = null;
         }
     });
 };
@@ -101,22 +119,22 @@ Astronomy.prototype.updateCalculation = function () {
     self.vDev.set("metrics:level",altitude);
     self.vDev.set("metrics:azimuth",azimuth);
     self.vDev.set("metrics:altitude",altitude);
-    self.vDev.set("metrics:sunrise",times.sunrise);
-    self.vDev.set("metrics:sunset",times.sunset);
+    
+    _.each(self.events,function(event) {
+        self.vDev.set("metrics:"+event,times[event]);
+        
+        if (typeof(self[event+'Timeout']) !== 'number') {
+            var diff = times[event].getTime() - now.getTime();
+            if (diff > 0) {
+                console.log("Install "+event+" timeout in "+diff);
+                self[event+'Timeout'] = setTimeout(function() { self.callEvent(event); },diff);
+            }
+        }
+    });
     
     this.controller.emit("astronomy.setPos", {
         azimuth: azimuth,
         altitude: altitude
-    });
-    
-    _.each(['sunrise','sunset'],function(key) {
-        if (typeof(self[key+'Timeout']) !== 'number') {
-            var diff = times[key].getTime() - now.getTime();
-            if (diff > 0) {
-                console.log("Install "+key+" timeout in "+diff);
-                self[key+'Timeout'] = setTimeout(function() { self.callEvent(key); },diff);
-            }
-        }
     });
 };
 
