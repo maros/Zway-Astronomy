@@ -1,6 +1,8 @@
 # Zway-Astronomy
 
-Zway Astronomy module for calculating the current solar position
+Zway Astronomy module for calculating the current solar position. The module
+provides various metrics and emits events when the sun reaches certain
+positions.
 
 # Configuration
 
