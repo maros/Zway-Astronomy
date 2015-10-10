@@ -78,7 +78,6 @@ Astronomy.prototype.init = function (config) {
 
 Astronomy.prototype.stop = function () {
     var self = this;
-    Astronomy.super_.prototype.stop.call(this);
     
     if (this.vDev) {
         this.controller.devices.remove(this.vDev.id);
@@ -93,6 +92,8 @@ Astronomy.prototype.stop = function () {
             self[event+'Timeout'] = null;
         }
     });
+    
+    Astronomy.super_.prototype.stop.call(this);
 };
 
 // ----------------------------------------------------------------------------
