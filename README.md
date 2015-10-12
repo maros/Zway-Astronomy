@@ -33,7 +33,8 @@ above the horizon in degrees. Additionally the following metrics are set
 *    metrics:dawn: Morning nautical twilight ends, morning civil twilight starts
 
 All metrics except azimuth and altitude are stored as JavaScript Date objects,
-and may lay in the past since they are calculated for the current day.
+and may lay in the past since they are only calculated for the current day. 
+The device icon indicates day/night.
 
 # Events
 
