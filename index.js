@@ -51,7 +51,7 @@ Astronomy.prototype.init = function (config) {
     this.longitude      = config.longitude.toString();
     var langFile        = self.controller.loadModuleLang("Astronomy");
     _.each(self.events,function(event) {
-        self[event+'Timer'] = null;
+        self[event+'Timer'] = undefined;
     });
     
     this.vDev = this.controller.devices.create({
@@ -82,7 +82,7 @@ Astronomy.prototype.stop = function () {
     
     if (this.vDev) {
         this.controller.devices.remove(this.vDev.id);
-        this.vDev = null;
+        this.vDev = undefined;
     }
     
     clearTimeout(this.timer);
@@ -90,7 +90,7 @@ Astronomy.prototype.stop = function () {
     _.each(self.events,function(event) {
         if (typeof(self[event+'Timeout']) === 'number') {
             clearTimeout(self[event+'Timeout']);
-            self[event+'Timeout'] = null;
+            self[event+'Timeout'] = undefined;
         }
     });
     
@@ -142,7 +142,7 @@ Astronomy.prototype.updateCalculation = function () {
 
 Astronomy.prototype.callEvent = function (event) {
     console.log("Astronomy event "+event);
-    this[event+'Timeout'] = null;
+    this[event+'Timeout'] = undefined;
     this.controller.emit("astronomy."+event);
 };
 
