@@ -59,6 +59,7 @@ Astronomy.prototype.init = function (config) {
         defaults: {
             deviceType: "sensorMultilevel",
             metrics: {
+                probeTitle: "astronomy",
                 title: langFile.title
             }
         },
