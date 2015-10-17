@@ -38,7 +38,9 @@ The device icon indicates day/night.
 
 # Events
 
-## astronomy.setPos - Called whenever azimuth and altitude are recalculated
+## astronomy.setPos
+
+Called whenever azimuth and altitude are recalculated
 
 ## astronomy.sunrise
 

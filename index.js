@@ -133,11 +133,6 @@ Astronomy.prototype.updateCalculation = function () {
             }
         }
     });
-    
-    this.controller.emit("astronomy.setPos", {
-        azimuth: azimuth,
-        altitude: altitude
-    });
 };
 
 Astronomy.prototype.callEvent = function (event) {
