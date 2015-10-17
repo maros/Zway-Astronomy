@@ -110,7 +110,7 @@ Astronomy.prototype.updateCalculation = function () {
     var azimuth     = position.azimuth * 180 / Math.PI;
     var altitude    = position.altitude * 180 / Math.PI;
     
-    console.log("Astronomy calculation");
+    console.log("[Astronomy] Calculate");
     if (altitude < -2) {
         //self.vDev.set("metrics:title",langFile.night);
         self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/night.png");
@@ -128,7 +128,7 @@ Astronomy.prototype.updateCalculation = function () {
         if (typeof(self[event+'Timeout']) !== 'number') {
             var diff = times[event].getTime() - now.getTime();
             if (diff > 0) {
-                console.log("Install "+event+" timeout in "+diff);
+                console.log("[Astronomy] Install "+event+" timeout in "+diff);
                 self[event+'Timeout'] = setTimeout(function() { self.callEvent(event); },diff);
             }
         }
@@ -136,7 +136,7 @@ Astronomy.prototype.updateCalculation = function () {
 };
 
 Astronomy.prototype.callEvent = function (event) {
-    console.log("Astronomy event "+event);
+    console.log("[Astronomy] Event "+event);
     this[event+'Timeout'] = undefined;
     this.controller.emit("astronomy."+event);
 };
