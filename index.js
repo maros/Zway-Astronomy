@@ -12,6 +12,11 @@ Description:
 function Astronomy (id, controller) {
     // Call superconstructor first (AutomationModule)
     Astronomy.super_.call(this, id, controller);
+    
+    this.latitude   = undefined;
+    this.longitude  = undefined;
+    this.vDev       = undefined;
+    this.timer      = undefined;
 }
 
 inherits(Astronomy, AutomationModule);
