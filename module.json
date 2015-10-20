@@ -20,10 +20,12 @@
         "type": "object",
         "properties": {
             "latitude": {
-                "type": "number"
+                "type": "number",
+                "required": true
             },
             "longitude": {
-                "type": "number"
+                "type": "number",
+                "required": true
             }
         },
         "required": true
