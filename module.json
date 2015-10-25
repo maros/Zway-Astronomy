@@ -1,43 +1,43 @@
 {
-    "dependencies": [],
-    "singleton": true,
-    "category": "environment",
-    "author": "Maroš Kollár",
-    "homepage": "http://k-1.com",
-    "icon": "day.png",
-    "version": "1.00",
-    "moduleName": "Astronomy",
-    "maturity": "stable",
-    "repository": {
-        "type": "git",
-        "source": "https://github.com/maros/Zway-Astronomy"
-    },
-    "defaults": {
-        "title": "__title__",
-        "description": "__description__"
-    },
-    "schema": {
-        "type": "object",
-        "properties": {
-            "latitude": {
-                "type": "number",
-                "required": true
-            },
-            "longitude": {
-                "type": "number",
-                "required": true
-            }
-        },
-        "required": true
-    },
-    "options": {
-        "fields": {
-            "latitude": {
-                "label": "__latitude__"
-            },
-            "longitude": {
-                "label": "__longitude__"
-            }
-        }
-    }
+   "author" : "Maroš Kollár",
+   "category" : "environment",
+   "defaults" : {
+      "description" : "__description__",
+      "title" : "__title__"
+   },
+   "dependencies" : [],
+   "homepage" : "http://k-1.com",
+   "icon" : "day.png",
+   "maturity" : "stable",
+   "moduleName" : "Astronomy",
+   "options" : {
+      "fields" : {
+         "latitude" : {
+            "label" : "__latitude__"
+         },
+         "longitude" : {
+            "label" : "__longitude__"
+         }
+      }
+   },
+   "repository" : {
+      "source" : "https://github.com/maros/Zway-Astronomy",
+      "type" : "git"
+   },
+   "schema" : {
+      "properties" : {
+         "latitude" : {
+            "required" : true,
+            "type" : "number"
+         },
+         "longitude" : {
+            "required" : true,
+            "type" : "number"
+         }
+      },
+      "required" : true,
+      "type" : "object"
+   },
+   "singleton" : true,
+   "version" : "1.01"
 }
