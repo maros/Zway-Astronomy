@@ -28,11 +28,13 @@
       "properties" : {
          "latitude" : {
             "required" : true,
-            "type" : "number"
+            "type" : "number",
+            "order": 1
          },
          "longitude" : {
             "required" : true,
-            "type" : "number"
+            "type" : "number",
+            "order": 2
          }
       },
       "required" : true,
