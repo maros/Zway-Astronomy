@@ -4,6 +4,17 @@ Zway Astronomy module for calculating the current solar position. The module
 provides various metrics and emits events when the sun reaches certain
 positions.
 
+For example, the solar altitude may be used in conjunction with the 
+MotionTrigger module ( https://github.com/maros/Zway-MotionTrigger ) to 
+trigger lights only if it is dark outside. Events emited by this module 
+(eg. astronomy.sunrise) can be caught and processed by the Event Watcher
+( https://github.com/maros/Zway-EventWatcher ) module to trigger custom 
+actions.
+
+The module is required by the Blind Control module 
+( https://github.com/maros/Zway-BlindControl ) which manages blinds for 
+optimal shading.
+
 # Configuration
 
 ## latitude,longitude
