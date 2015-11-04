@@ -70,6 +70,7 @@ Astronomy.prototype.init = function (config) {
         },
         overlay: {
             metrics: {
+                probeTitle: "astronomy",
                 scaleTitle: "°"
             }
         },
