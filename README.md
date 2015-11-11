@@ -6,7 +6,7 @@ positions.
 
 For example, the solar altitude may be used in conjunction with the 
 MotionTrigger module ( https://github.com/maros/Zway-MotionTrigger ) to 
-trigger lights only if it is dark outside. Events emited by this module 
+trigger lights only if it is dark outside. Events emitted by this module 
 (eg. astronomy.sunrise) can be caught and processed by the Event Watcher
 ( https://github.com/maros/Zway-EventWatcher ) module to trigger custom 
 actions.
