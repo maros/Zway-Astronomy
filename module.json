@@ -27,19 +27,19 @@
    "schema" : {
       "properties" : {
          "latitude" : {
+            "order" : 1,
             "required" : true,
-            "type" : "number",
-            "order": 1
+            "type" : "number"
          },
          "longitude" : {
+            "order" : 2,
             "required" : true,
-            "type" : "number",
-            "order": 2
+            "type" : "number"
          }
       },
       "required" : true,
       "type" : "object"
    },
    "singleton" : true,
-   "version" : "1.01"
+   "version" : "1.02"
 }
