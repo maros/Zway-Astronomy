@@ -1,0 +1,9 @@
+{
+  "title": "Astronomie Module",
+  "description": "Berechnet die aktuelle Position der Sonne für die angegebenen Koordinaten. Liefert eine Vielzahl an Metriken und Events für andere Automatisierungs Module.Í",
+  "latitude": "Breite",
+  "longitude": "Länge",
+  "day": "Tag",
+  "night": "Nacht"
+  
+}
