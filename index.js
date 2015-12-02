@@ -143,6 +143,7 @@ Astronomy.prototype.updateCalculation = function () {
 Astronomy.prototype.callEvent = function (event) {
     console.log("[Astronomy] Event "+event);
     this[event+'Timeout'] = undefined;
+    this.updateCalculation();
     this.controller.emit("astronomy."+event);
 };
 
