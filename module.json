@@ -5,8 +5,8 @@
       "description" : "__description__",
       "title" : "__title__"
    },
-   "dependencies" : [],
-   "homepage" : "http://k-1.com",
+   "dependencies" : ["Cron"],
+   "homepage" : "https://github.com/maros/Zway-Astronomy/",
    "icon" : "day.png",
    "maturity" : "stable",
    "moduleName" : "Astronomy",
