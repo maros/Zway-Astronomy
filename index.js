@@ -79,6 +79,7 @@ Astronomy.prototype.init = function (config) {
     this.timer = setInterval(function() {
         self.updateCalculation(self);
     }, 60*1000);
+    
     self.updateCalculation();
 };
 
@@ -91,13 +92,6 @@ Astronomy.prototype.stop = function () {
     }
     
     clearTimeout(this.timer);
-    
-    _.each(self.events,function(event) {
-        if (typeof(self[event+'Timeout']) === 'number') {
-            clearTimeout(self[event+'Timeout']);
-            self[event+'Timeout'] = undefined;
-        }
-    });
     
     Astronomy.super_.prototype.stop.call(this);
 };
@@ -129,22 +123,11 @@ Astronomy.prototype.updateCalculation = function () {
     
     _.each(self.events,function(event) {
         self.vDev.set("metrics:"+event,times[event]);
-        
-        if (typeof(self[event+'Timeout']) !== 'number') {
-            var diff = times[event].getTime() - now.getTime();
-            if (diff > 0) {
-                console.log("[Astronomy] Install "+event+" timeout in "+diff);
-                self[event+'Timeout'] = setTimeout(function() { self.callEvent(event); },diff);
-            }
+        if (times[event].getHours() === now.getHours()
+            && times[event].getMinutes() === now.getMinutes()
+            && times[event].getDate() === now.getDate()) {
+            console.log("[Astronomy] Event "+event);
+            self.controller.emit("astronomy."+event);
         }
     });
 };
-
-Astronomy.prototype.callEvent = function (event) {
-    console.log("[Astronomy] Event "+event);
-    this[event+'Timeout'] = undefined;
-    this.updateCalculation();
-    this.controller.emit("astronomy."+event);
-};
-
- 
