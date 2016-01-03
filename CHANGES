@@ -1,3 +1,7 @@
+1.04 2016 Jan 03, Sun
+    * Use loop to handle astronomical events. Not unreliable timeouts
+    * Update readme & homepage
+
 1.03 2015 Dec 19, Sat
     * update astronomy before calling event
     * German translation

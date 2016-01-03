@@ -5,7 +5,9 @@
       "description" : "__description__",
       "title" : "__title__"
    },
-   "dependencies" : ["Cron"],
+   "dependencies" : [
+      "Cron"
+   ],
    "homepage" : "https://github.com/maros/Zway-Astronomy/",
    "icon" : "day.png",
    "maturity" : "stable",
@@ -41,5 +43,5 @@
       "type" : "object"
    },
    "singleton" : true,
-   "version" : 1.03
+   "version" : 1.04
 }
