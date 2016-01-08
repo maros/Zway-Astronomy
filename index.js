@@ -64,7 +64,7 @@ Astronomy.prototype.init = function (config) {
         defaults: {
             deviceType: "sensorMultilevel",
             metrics: {
-                title: langFile.title
+                title: langFile.m_title
             }
         },
         overlay: {
