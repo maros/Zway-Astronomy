@@ -1,9 +1,8 @@
 {
-  "m_title" : "Astronomie Modul",
-  "m_descr": "Berechnet die aktuelle Position der Sonne für die angegebenen Koordinaten. Liefert eine Vielzahl an Metriken wie zB. den Sonnenstand und Azimut, und Events für andere Automatisierungs Module. Die Daten aus diesm Modul können für die Steuerung von Beschattun oder Beleuchtung abhängig vom Sonnenstand benutzt werden.",
-  "latitude": "Geografische Breite",
-  "longitude": "Geografische Länge",
-  "day": "Tag",
-  "night": "Nacht"
-  
+   "day" : "Tag",
+   "latitude" : "Geografische Breite",
+   "longitude" : "Geografische Länge",
+   "m_descr" : "Berechnet die aktuelle Position der Sonne für die angegebenen Koordinaten. Liefert eine Vielzahl an Metriken wie zB. den Sonnenstand und Azimut, und Events für andere Automatisierungs Module. Die Daten aus diesm Modul können für die Steuerung von Beschattun oder Beleuchtung abhängig vom Sonnenstand benutzt werden.\nSiehe https://github.com/maros/Zway-Astronomy//blob/master/README.md für detailliertere Dokumentation.",
+   "m_title" : "Astronomie Modul",
+   "night" : "Nacht"
 }
