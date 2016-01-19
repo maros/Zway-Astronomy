@@ -1,6 +1,6 @@
 {
   "m_title" : "Astronomy Module",
-  "m_descr": "Calculates the position of the sun for the given location. The module provides various metrics and emits events when the sun reaches certain positions.",
+  "m_descr": "Calculates the position of the sun for the given location. The module provides various metrics like sun altitude and azimuth, and emits events when the sun reaches certain positions. This module can be used to controll light scenes or shading based on the solar position.",
   "latitude": "Latitude",
   "longitude": "Longitude",
   "day": "Day",
