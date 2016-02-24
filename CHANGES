@@ -1,3 +1,12 @@
+1.06 2016 Feb 24, Wed
+    * Update module description
+    * Update to latest suncalc.js
+    * Load suncalc.js with moduleBasePath prefix
+    * Remove cron dependency declaration
+    * Fix doc link
+    * Update doc link
+    * Add doc link
+
 1.05 2016 Jan 19, Tue
     * Improve description
     * Rename title/description key to make module work in appstore
