@@ -1,17 +1,17 @@
 # Zway-Astronomy
 
-Zway Astronomy module for calculating the current solar position. The module
-provides various metrics and emits events when the sun reaches certain
-positions.
+Zway Astronomy module for calculating the current solar position above the 
+horizon. The module provides various metrics for other automation modules 
+and emits events when the sun reaches certain positions.
 
 For example, the solar altitude may be used in conjunction with the 
-MotionTrigger module ( https://github.com/maros/Zway-MotionTrigger ) to 
+"Motion Trigger" module ( https://github.com/maros/Zway-MotionTrigger ) to 
 trigger lights only if it is dark outside. Events emitted by this module 
-(eg. astronomy.sunrise) can be caught and processed by the Event Watcher
+(eg. astronomy.sunrise) can be caught and processed by the "Event Watcher"
 ( https://github.com/maros/Zway-EventWatcher ) module to trigger custom 
 actions.
 
-The module is required by the Blind Control module 
+This module is required by the "Blind Control" module 
 ( https://github.com/maros/Zway-BlindControl ) which manages blinds for 
 optimal shading.
 
@@ -24,10 +24,11 @@ Geo coordinates for the used position
 # Virtual Devices
 
 This module creates a virtual device that displays the angle of the sun
-above the horizon in degrees. Additionally the following metrics are set
+above/below the horizon in degrees. Additionally the following metrics are 
+set and can be accessed from other automation modules.
 
 *    metrics:azimuth: Sun position degrees
-*    metrics:altitude: Altitude above horizont
+*    metrics:altitude: Altitude above horizon
 *    metrics:sunrise: Top edge of the sun appears on the horizon
 *    metrics:sunriseEnd: Bottom edge of the sun touches the horizon
 *    metrics:goldenHourEnd: Morning golden hour ends
