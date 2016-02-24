@@ -50,7 +50,7 @@ Astronomy.prototype.init = function (config) {
     var self = this;
     
     // See https://github.com/mourner/suncalc
-    executeFile("modules/Astronomy/suncalc.js");
+    executeFile(this.moduleBasePath()+"/suncalc.js");
     
     this.latitude       = config.latitude.toString();
     this.longitude      = config.longitude.toString();
