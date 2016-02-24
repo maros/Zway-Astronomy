@@ -43,6 +43,14 @@ function altitude(H, phi, dec) { return asin(sin(phi) * sin(dec) + cos(phi) * co
 
 function siderealTime(d, lw) { return rad * (280.16 + 360.9856235 * d) - lw; }
 
+function astroRefraction(h) {
+    if (h < 0) // the following formula works for positive altitudes only.
+        h = 0; // if h = -0.08901179 a div/0 would occur.
+
+    // formula 16.4 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+    // 1.02 / tan(h + 10.26 / (h + 5.10)) h in degrees, result in arc minutes -> converted to rad:
+    return 0.0002967 / Math.tan(h + 0.00312536 / (h + 0.08901179));
+}
 
 // general sun calculations
 
@@ -193,15 +201,17 @@ SunCalc.getMoonPosition = function (date, lat, lng) {
 
         c = moonCoords(d),
         H = siderealTime(d, lw) - c.ra,
-        h = altitude(H, phi, c.dec);
+        h = altitude(H, phi, c.dec),
+        // formula 14.1 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+        pa = atan(sin(H), tan(phi) * cos(c.dec) - sin(c.dec) * cos(H));
 
-    // altitude correction for refraction
-    h = h + rad * 0.017 / tan(h + rad * 10.26 / (h + rad * 5.10));
+    h = h + astroRefraction(h); // altitude correction for refraction
 
     return {
         azimuth: azimuth(H, phi, c.dec),
         altitude: h,
-        distance: c.dist
+        distance: c.dist,
+        parallacticAngle: pa
     };
 };
 
@@ -237,12 +247,10 @@ function hoursLater(date, h) {
 
 // calculations for moon rise/set times are based on http://www.stargazing.net/kepler/moonrise.html article
 
-SunCalc.getMoonTimes = function (date, lat, lng) {
+SunCalc.getMoonTimes = function (date, lat, lng, inUTC) {
     var t = new Date(date);
-    t.setHours(0);
-    t.setMinutes(0);
-    t.setSeconds(0);
-    t.setMilliseconds(0);
+    if (inUTC) t.setUTCHours(0, 0, 0, 0);
+    else t.setHours(0, 0, 0, 0);
 
     var hc = 0.133 * rad,
         h0 = SunCalc.getMoonPosition(t, lat, lng).altitude - hc,
