@@ -3,8 +3,6 @@
     * Update to latest suncalc.js
     * Load suncalc.js with moduleBasePath prefix
     * Remove cron dependency declaration
-    * Fix doc link
-    * Update doc link
     * Add doc link
 
 1.05 2016 Jan 19, Tue

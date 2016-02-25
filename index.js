@@ -52,15 +52,15 @@ Astronomy.prototype.init = function (config) {
     // See https://github.com/mourner/suncalc
     executeFile(this.moduleBasePath()+"/suncalc.js");
     
-    this.latitude       = config.latitude.toString();
-    this.longitude      = config.longitude.toString();
+    self.latitude       = config.latitude.toString();
+    self.longitude      = config.longitude.toString();
     var langFile        = self.controller.loadModuleLang("Astronomy");
     _.each(self.events,function(event) {
         self[event+'Timer'] = undefined;
     });
     
-    this.vDev = this.controller.devices.create({
-        deviceId: "Astronomy_"+this.id,
+    self.vDev = self.controller.devices.create({
+        deviceId: "Astronomy_"+self.id,
         defaults: {
             deviceType: "sensorMultilevel",
             metrics: {
@@ -76,7 +76,7 @@ Astronomy.prototype.init = function (config) {
         moduleId: this.id
     });
     
-    this.timer = setInterval(function() {
+    self.interval = setInterval(function() {
         self.updateCalculation(self);
     }, 60*1000);
     
@@ -86,15 +86,15 @@ Astronomy.prototype.init = function (config) {
 Astronomy.prototype.stop = function () {
     var self = this;
     
-    if (this.vDev) {
-        this.controller.devices.remove(this.vDev.id);
-        this.vDev = undefined;
+    if (self.vDev) {
+        self.controller.devices.remove(self.vDev.id);
+        self.vDev = undefined;
     }
     
-    clearInterval(this.timer);
-    this.timer = undefined;
+    clearInterval(self.interval);
+    self.timer = undefined;
     
-    Astronomy.super_.prototype.stop.call(this);
+    Astronomy.super_.prototype.stop.call(self);
 };
 
 // ----------------------------------------------------------------------------
