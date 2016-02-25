@@ -91,7 +91,8 @@ Astronomy.prototype.stop = function () {
         this.vDev = undefined;
     }
     
-    clearTimeout(this.timer);
+    clearInterval(this.timer);
+    this.timer = undefined;
     
     Astronomy.super_.prototype.stop.call(this);
 };
