@@ -1,3 +1,7 @@
+1.07 2016 Feb 26, Fri
+    * Cleanup
+	* Fix interval stop
+
 1.06 2016 Feb 24, Wed
     * Update module description
     * Update to latest suncalc.js
