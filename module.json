@@ -13,10 +13,14 @@
    "options" : {
       "fields" : {
          "latitude" : {
-            "label" : "__latitude__"
+            "label" : "__latitude_label__",
+            "placeholder" : "48.220",
+            "helper" : "__coordinate_helper__"
          },
          "longitude" : {
-            "label" : "__longitude__"
+            "label" : "__longitude_label__",
+            "placeholder" : "16.239",
+            "helper" : "__coordinate_helper__"
          }
       }
    },
