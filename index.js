@@ -68,8 +68,8 @@ Astronomy.prototype.init = function (config) {
             }
         },
         overlay: {
+            probeType: 'astronomy_sun_altitude',
             metrics: {
-                probeTitle: "Astronomy",
                 scaleTitle: "°"
             }
         },
