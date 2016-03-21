@@ -3,7 +3,8 @@
    "category" : "environment",
    "defaults" : {
       "description" : "__m_descr__",
-      "title" : "__m_title__"
+      "title" : "__m_title__",
+      "createAzimuthDevice": false
    },
    "dependencies" : [],
    "homepage" : "https://github.com/maros/Zway-Astronomy/",
@@ -15,13 +16,19 @@
          "latitude" : {
             "label" : "__latitude_label__",
             "placeholder" : "48.220",
-            "helper" : "__coordinate_helper__"
+            "helper" : "__coordinate_helper__",
+                "order" : 1
          },
          "longitude" : {
             "label" : "__longitude_label__",
             "placeholder" : "16.239",
-            "helper" : "__coordinate_helper__"
-         }
+            "helper" : "__coordinate_helper__",
+            "order" : 2
+         },
+         "createAzimuthDevice" : {
+             "label" : "__create_azimuth_device_label__",
+             "order" : 3
+          }
       }
    },
    "repository" : {
@@ -29,16 +36,16 @@
       "type" : "git"
    },
    "schema" : {
+      "required": ["latitude","longitude"],
       "properties" : {
          "latitude" : {
-            "order" : 1,
-            "required" : true,
             "type" : "number"
          },
          "longitude" : {
-            "order" : 2,
-            "required" : true,
             "type" : "number"
+         },
+         "createAzimuthDevice": {
+             "type": "boolean"
          }
       },
       "required" : true,

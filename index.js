@@ -13,10 +13,10 @@ function Astronomy (id, controller) {
     // Call superconstructor first (AutomationModule)
     Astronomy.super_.call(this, id, controller);
     
-    this.latitude   = undefined;
-    this.longitude  = undefined;
-    this.vDev       = undefined;
-    this.timer      = undefined;
+    this.latitude       = undefined;
+    this.longitude      = undefined;
+    this.vDev           = {};
+    this.timer          = undefined;
 }
 
 inherits(Astronomy, AutomationModule);
@@ -59,21 +59,24 @@ Astronomy.prototype.init = function (config) {
         self[event+'Timer'] = undefined;
     });
     
-    self.vDev = self.controller.devices.create({
-        deviceId: "Astronomy_"+self.id,
-        defaults: {
-            deviceType: "sensorMultilevel",
-            metrics: {
-                title: langFile.m_title
-            }
-        },
-        overlay: {
-            probeType: 'astronomy_sun_altitude',
-            metrics: {
-                scaleTitle: "°"
-            }
-        },
-        moduleId: this.id
+    _.each(['altitude','azimuth'],function(type) {
+        self.vDev[type]= self.controller.devices.create({
+            deviceId: "Astronomy_"+self.id+"_"+type,
+            defaults: {
+                deviceType: "sensorMultilevel",
+                metrics: {
+                    icon: 'icon.png',
+                    title: langFile[type+'_device']
+                }
+            },
+            overlay: {
+                probeType: 'astronomy_sun_'+type,
+                metrics: {
+                    scaleTitle: "°"
+                }
+            },
+            moduleId: self.id
+        });
     });
     
     self.interval = setInterval(function() {
@@ -86,10 +89,13 @@ Astronomy.prototype.init = function (config) {
 Astronomy.prototype.stop = function () {
     var self = this;
     
-    if (self.vDev) {
-        self.controller.devices.remove(self.vDev.id);
-        self.vDev = undefined;
-    }
+    _.each(['altitude','azimuth'],function(type) {
+        
+        if (typeof(self.vDev[type]) !== 'undefined') {
+            self.controller.devices.remove(self.vDev[type].id);
+            self.vDev[type] = undefined;
+        }
+    });
     
     clearInterval(self.interval);
     self.timer = undefined;
@@ -109,21 +115,28 @@ Astronomy.prototype.updateCalculation = function () {
     var times       = SunCalc.getTimes(now, self.config.latitude, self.config.longitude);
     var azimuth     = position.azimuth * 180 / Math.PI;
     var altitude    = position.altitude * 180 / Math.PI;
+    var mode;
     
     console.log("[Astronomy] Calculate");
     if (altitude < -2) {
-        //self.vDev.set("metrics:title",langFile.night);
-        self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/night.png");
+        mode = 'night';
     } else {
-        //self.vDev.set("metrics:title",langFile.day);
-        self.vDev.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/day.png");
+        mode = 'day';
     }
-    self.vDev.set("metrics:level",altitude);
-    self.vDev.set("metrics:azimuth",azimuth);
-    self.vDev.set("metrics:altitude",altitude);
+    self.vDev.altitude.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/altitude_"+mode+".png");
+    self.vDev.altitude.set("metrics:level",altitude);
+    self.vDev.altitude.set("metrics:azimuth",azimuth);
+    self.vDev.altitude.set("metrics:altitude",altitude);
+    
+    if (typeof(self.vDev.azimuth) !== 'undefined') {
+        self.vDev.azimuth.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/azimuth_"+mode+".png");
+        self.vDev.azimuth.set("metrics:level",azimuth);
+        self.vDev.azimuth.set("metrics:azimuth",azimuth);
+        self.vDev.azimuth.set("metrics:altitude",altitude);
+    }
     
     _.each(self.events,function(event) {
-        self.vDev.set("metrics:"+event,times[event]);
+        self.vDev.altitude.set("metrics:"+event,times[event]);
         if (times[event].getHours() === now.getHours()
             && times[event].getMinutes() === now.getMinutes()
             && times[event].getDate() === now.getDate()) {
