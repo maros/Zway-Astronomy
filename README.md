@@ -21,6 +21,10 @@ optimal shading.
 
 Geo coordinates for the used position
 
+## createAzimuthDevice
+
+If set to true, will create a device showing the current azimuth of the sun.
+
 # Virtual Devices
 
 This module creates a virtual device that displays the angle of the sun
@@ -47,6 +51,9 @@ set and can be accessed from other automation modules.
 All metrics except azimuth and altitude are stored as JavaScript Date objects,
 and may lay in the past since they are only calculated for the current day. 
 The device icon indicates day/night.
+
+If createAzimuthDevice config is enabled, then a second virtual device
+will be created.
 
 # Events
 
