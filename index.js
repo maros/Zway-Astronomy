@@ -113,7 +113,7 @@ Astronomy.prototype.updateCalculation = function () {
     var now         = new Date();
     var position    = SunCalc.getPosition(now, self.config.latitude, self.config.longitude);
     var times       = SunCalc.getTimes(now, self.config.latitude, self.config.longitude);
-    var azimuth     = position.azimuth * 180 / Math.PI;
+    var azimuth     = position.azimuth * 180 / Math.PI + 180;
     var altitude    = position.altitude * 180 / Math.PI;
     var mode;
     
