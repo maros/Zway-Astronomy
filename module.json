@@ -2,9 +2,9 @@
    "author" : "Maroš Kollár",
    "category" : "environment",
    "defaults" : {
+      "createAzimuthDevice" : false,
       "description" : "__m_descr__",
-      "title" : "__m_title__",
-      "createAzimuthDevice": false
+      "title" : "__m_title__"
    },
    "dependencies" : [],
    "homepage" : "https://github.com/maros/Zway-Astronomy/",
@@ -13,22 +13,22 @@
    "moduleName" : "Astronomy",
    "options" : {
       "fields" : {
+         "createAzimuthDevice" : {
+            "label" : "__create_azimuth_device_label__",
+            "order" : 3
+         },
          "latitude" : {
-            "label" : "__latitude_label__",
-            "placeholder" : "48.220",
             "helper" : "__coordinate_helper__",
-                "order" : 1
+            "label" : "__latitude_label__",
+            "order" : 1,
+            "placeholder" : "48.220"
          },
          "longitude" : {
-            "label" : "__longitude_label__",
-            "placeholder" : "16.239",
             "helper" : "__coordinate_helper__",
-            "order" : 2
-         },
-         "createAzimuthDevice" : {
-             "label" : "__create_azimuth_device_label__",
-             "order" : 3
-          }
+            "label" : "__longitude_label__",
+            "order" : 2,
+            "placeholder" : "16.239"
+         }
       }
    },
    "repository" : {
@@ -36,21 +36,20 @@
       "type" : "git"
    },
    "schema" : {
-      "required": ["latitude","longitude"],
       "properties" : {
+         "createAzimuthDevice" : {
+            "type" : "boolean"
+         },
          "latitude" : {
             "type" : "number"
          },
          "longitude" : {
             "type" : "number"
-         },
-         "createAzimuthDevice": {
-             "type": "boolean"
          }
       },
       "required" : true,
       "type" : "object"
    },
    "singleton" : true,
-   "version" : 1.07
+   "version" : 1.08
 }
