@@ -7,6 +7,6 @@
    "latitude_label" : "Latitude",
    "longitude_label" : "Longitude",
    "m_descr" : "Calculates the position of the sun above the horizon for the given location. The module provides various metrics for other automation modules like sun altitude and azimuth, and emits events when the sun reaches certain positions. This module can be used to control light scenes or shading based on the solar position.<br>Check <a href=https://github.com/maros/Zway-Astronomy/blob/master/README.md>github.com/maros/Zway-Astronomy</a> for detailed documentation.",
-   "m_title" : "Astronomy Module",
+   "m_title" : "Astronomy",
    "night" : "Night"
 }
