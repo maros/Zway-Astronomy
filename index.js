@@ -115,7 +115,9 @@ Astronomy.prototype.updateCalculation = function () {
     var times       = SunCalc.getTimes(now, self.config.latitude, self.config.longitude);
     var azimuth     = position.azimuth * 180 / Math.PI + 180;
     var altitude    = position.altitude * 180 / Math.PI;
+    var previous    = parseFloat(self.vDev.altitude.get("metrics:level") || altitude);
     var mode;
+    
     
     console.log("[Astronomy] Calculate");
     if (altitude < -2) {
@@ -127,6 +129,7 @@ Astronomy.prototype.updateCalculation = function () {
     self.vDev.altitude.set("metrics:level",altitude);
     self.vDev.altitude.set("metrics:azimuth",azimuth);
     self.vDev.altitude.set("metrics:altitude",altitude);
+    self.vDev.altitude.set("metrics:trend",(previous <= altitude) ? 'rise':'set');
     
     if (typeof(self.vDev.azimuth) !== 'undefined') {
         self.vDev.azimuth.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/azimuth_"+mode+".png");

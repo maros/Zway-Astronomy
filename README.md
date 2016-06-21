@@ -47,10 +47,11 @@ set and can be accessed from other automation modules.
 *    metrics:nightEnd: Night ends. Morning astronomical twilight starts
 *    metrics:nauticalDawn: Morning nautical twilight starts)
 *    metrics:dawn: Morning nautical twilight ends, morning civil twilight starts
+*    metrics:trend: 'rise' or 'set'
 
-All metrics except azimuth and altitude are stored as JavaScript Date objects,
-and may lay in the past since they are only calculated for the current day. 
-The device icon indicates day/night.
+All metrics except azimuth, altitude and trend are stored as JavaScript Date
+objects, and may lay in the past since they are only calculated for the
+current day. The device icon indicates day/night.
 
 If createAzimuthDevice config is enabled, then a second virtual device
 will be created.
