@@ -20,14 +20,12 @@
          "latitude" : {
             "helper" : "__coordinate_helper__",
             "label" : "__latitude_label__",
-            "order" : 1,
-            "placeholder" : "48.220"
+            "order" : 1
          },
          "longitude" : {
             "helper" : "__coordinate_helper__",
             "label" : "__longitude_label__",
-            "order" : 2,
-            "placeholder" : "16.239"
+            "order" : 2
          }
       }
    },
@@ -41,10 +39,12 @@
             "type" : "boolean"
          },
          "latitude" : {
-            "type" : "number"
+            "type" : "number",
+            "required":true
          },
          "longitude" : {
-            "type" : "number"
+            "type" : "number",
+            "required":true
          }
       },
       "required" : true,
