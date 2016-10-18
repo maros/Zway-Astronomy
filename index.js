@@ -12,7 +12,7 @@ Description:
 function Astronomy (id, controller) {
     // Call superconstructor first (AutomationModule)
     Astronomy.super_.call(this, id, controller);
-    
+
     this.latitude       = undefined;
     this.longitude      = undefined;
     this.vDev           = {};
@@ -46,19 +46,19 @@ Astronomy.prototype.events = [
 
 Astronomy.prototype.init = function (config) {
     Astronomy.super_.prototype.init.call(this, config);
-    
+
     var self = this;
-    
+
     // See https://github.com/mourner/suncalc
     executeFile(self.moduleBasePath()+"/suncalc.js");
-    
+
     self.latitude       = config.latitude.toString();
     self.longitude      = config.longitude.toString();
     var langFile        = self.controller.loadModuleLang("Astronomy");
     _.each(self.events,function(event) {
         self[event+'Timer'] = undefined;
     });
-    
+
     _.each(['altitude','azimuth'],function(type) {
         self.vDev[type]= self.controller.devices.create({
             deviceId: "Astronomy_"+self.id+"_"+type,
@@ -78,28 +78,28 @@ Astronomy.prototype.init = function (config) {
             moduleId: self.id
         });
     });
-    
+
     self.interval = setInterval(function() {
         self.updateCalculation(self);
     }, 60*1000);
-    
+
     self.updateCalculation();
 };
 
 Astronomy.prototype.stop = function () {
     var self = this;
-    
+
     _.each(['altitude','azimuth'],function(type) {
-        
+
         if (typeof(self.vDev[type]) !== 'undefined') {
             self.controller.devices.remove(self.vDev[type].id);
             self.vDev[type] = undefined;
         }
     });
-    
+
     clearInterval(self.interval);
     self.timer = undefined;
-    
+
     Astronomy.super_.prototype.stop.call(self);
 };
 
@@ -117,8 +117,8 @@ Astronomy.prototype.updateCalculation = function () {
     var altitude    = position.altitude * 180 / Math.PI;
     var previous    = parseFloat(self.vDev.altitude.get("metrics:level") || altitude);
     var mode;
-    
-    
+
+
     console.log("[Astronomy] Calculate");
     if (altitude < -2) {
         mode = 'night';
@@ -130,14 +130,14 @@ Astronomy.prototype.updateCalculation = function () {
     self.vDev.altitude.set("metrics:azimuth",azimuth);
     self.vDev.altitude.set("metrics:altitude",altitude);
     self.vDev.altitude.set("metrics:trend",(previous <= altitude) ? 'rise':'set');
-    
+
     if (typeof(self.vDev.azimuth) !== 'undefined') {
         self.vDev.azimuth.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/azimuth_"+mode+".png");
         self.vDev.azimuth.set("metrics:level",azimuth);
         self.vDev.azimuth.set("metrics:azimuth",azimuth);
         self.vDev.azimuth.set("metrics:altitude",altitude);
     }
-    
+
     _.each(self.events,function(event) {
         self.vDev.altitude.set("metrics:"+event,times[event]);
         if (times[event].getHours() === now.getHours()
