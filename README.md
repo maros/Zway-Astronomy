@@ -1,18 +1,18 @@
 # Zway-Astronomy
 
-Zway Astronomy module for calculating the current solar position above the 
-horizon. The module provides various metrics for other automation modules 
+Zway Astronomy module for calculating the current solar position above the
+horizon. The module provides various metrics for other automation modules
 and emits events when the sun reaches certain positions.
 
-For example, the solar altitude may be used in conjunction with the 
-"Motion Trigger" module ( https://github.com/maros/Zway-MotionTrigger ) to 
-trigger lights only if it is dark outside. Events emitted by this module 
+For example, the solar altitude may be used in conjunction with the
+"Motion Trigger" module ( https://github.com/maros/Zway-MotionTrigger ) to
+trigger lights only if it is dark outside. Events emitted by this module
 (eg. astronomy.sunrise) can be caught and processed by the "Event Watcher"
-( https://github.com/maros/Zway-EventWatcher ) module to trigger custom 
+( https://github.com/maros/Zway-EventWatcher ) module to trigger custom
 actions.
 
-This module is required by the "Blind Control" module 
-( https://github.com/maros/Zway-BlindControl ) which manages blinds for 
+This module is required by the "Blind Control" module
+( https://github.com/maros/Zway-BlindControl ) which manages blinds for
 optimal shading.
 
 # Configuration
@@ -28,7 +28,7 @@ If set to true, will create a device showing the current azimuth of the sun.
 # Virtual Devices
 
 This module creates a virtual device that displays the angle of the sun
-above/below the horizon in degrees. Additionally the following metrics are 
+above/below the horizon in degrees. Additionally the following metrics are
 set and can be accessed from other automation modules.
 
 *    metrics:azimuth: Sun position degrees
@@ -89,11 +89,11 @@ will be created.
 # Installation
 
 The prefered way of installing this module is via the "Zwave.me App Store"
-available in 2.2.0 and higher. For stable module releases no access token is 
-required. If you want to test the latest pre-releases use 'k1_beta' as 
+available in 2.2.0 and higher. For stable module releases no access token is
+required. If you want to test the latest pre-releases use 'k1_beta' as
 app store access token.
 
-For developers and users of older Zway versions installation via git is 
+For developers and users of older Zway versions installation via git is
 recommended.
 
 ```shell
@@ -119,7 +119,7 @@ Compass icon by Gregor Črešnar from the Noun Project.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or any 
+the Free Software Foundation, either version 3 of the License, or any
 later version.
 
 This program is distributed in the hope that it will be useful,
