@@ -54,29 +54,36 @@ Astronomy.prototype.init = function (config) {
 
     self.latitude       = config.latitude.toString();
     self.longitude      = config.longitude.toString();
+    config.createAltitudeDevice = true;
+
     var langFile        = self.controller.loadModuleLang("Astronomy");
     _.each(self.events,function(event) {
         self[event+'Timer'] = undefined;
     });
 
     _.each(['altitude','azimuth'],function(type) {
-        self.vDev[type]= self.controller.devices.create({
-            deviceId: "Astronomy_"+self.id+"_"+type,
-            defaults: {
-                deviceType: "sensorMultilevel",
-                metrics: {
-                    icon: 'icon.png',
-                    title: langFile[type+'_device']
-                }
-            },
-            overlay: {
-                probeType: 'astronomy_sun_'+type,
-                metrics: {
-                    scaleTitle: "°"
-                }
-            },
-            moduleId: self.id
-        });
+        var configKey = 'create' + type.charAt(0).toUpperCase() + type.substring(1) + 'Device';
+        var configDevice = config[configKey];
+        if (configDevice === true
+            || _.isUndefined(configDevice)) {
+            self.vDev[type]= self.controller.devices.create({
+                deviceId: "Astronomy_"+self.id+"_"+type,
+                defaults: {
+                    deviceType: "sensorMultilevel",
+                    metrics: {
+                        icon: 'icon.png',
+                        title: langFile[type+'_device']
+                    }
+                },
+                overlay: {
+                    probeType: 'astronomy_sun_'+type,
+                    metrics: {
+                        scaleTitle: "°"
+                    }
+                },
+                moduleId: self.id
+            });
+        }
     });
 
     self.interval = setInterval(function() {
@@ -90,7 +97,6 @@ Astronomy.prototype.stop = function () {
     var self = this;
 
     _.each(['altitude','azimuth'],function(type) {
-
         if (typeof(self.vDev[type]) !== 'undefined') {
             self.controller.devices.remove(self.vDev[type].id);
             self.vDev[type] = undefined;
@@ -118,20 +124,22 @@ Astronomy.prototype.updateCalculation = function () {
     var previous    = parseFloat(self.vDev.altitude.get("metrics:level") || altitude);
     var mode;
 
-
     console.log("[Astronomy] Calculate");
     if (altitude < -2) {
         mode = 'night';
     } else {
         mode = 'day';
     }
-    self.vDev.altitude.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/altitude_"+mode+".png");
-    self.vDev.altitude.set("metrics:level",altitude);
-    self.vDev.altitude.set("metrics:azimuth",azimuth);
-    self.vDev.altitude.set("metrics:altitude",altitude);
-    self.vDev.altitude.set("metrics:trend",(previous <= altitude) ? 'rise':'set');
 
-    if (typeof(self.vDev.azimuth) !== 'undefined') {
+    if (! _.isUndefined(self.vDev.altitude)) {
+        self.vDev.altitude.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/altitude_"+mode+".png");
+        self.vDev.altitude.set("metrics:level",altitude);
+        self.vDev.altitude.set("metrics:azimuth",azimuth);
+        self.vDev.altitude.set("metrics:altitude",altitude);
+        self.vDev.altitude.set("metrics:trend",(previous <= altitude) ? 'rise':'set');
+    }
+
+    if (! _.isUndefined(self.vDev.azimuth)) {
         self.vDev.azimuth.set("metrics:icon", "/ZAutomation/api/v1/load/modulemedia/Astronomy/azimuth_"+mode+".png");
         self.vDev.azimuth.set("metrics:level",azimuth);
         self.vDev.azimuth.set("metrics:azimuth",azimuth);
@@ -139,7 +147,9 @@ Astronomy.prototype.updateCalculation = function () {
     }
 
     _.each(self.events,function(event) {
-        self.vDev.altitude.set("metrics:"+event,times[event]);
+        if (! _.isUndefined(self.vDev.altitude)) {
+            self.vDev.altitude.set("metrics:"+event,times[event]);
+        }
         if (times[event].getHours() === now.getHours()
             && times[event].getMinutes() === now.getMinutes()
             && times[event].getDate() === now.getDate()) {
