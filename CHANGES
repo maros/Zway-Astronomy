@@ -1,3 +1,10 @@
+1.09 2016 Oct 26, Wed
+    * Create and update devices only if configured #5
+    * Fix module icon #6
+    * Remove placeholder since it only confuses people
+    * Add solar trend
+    * Update module name
+
 1.08 2016 Apr 20, Wed
     * Update documentation
     * Fix translation

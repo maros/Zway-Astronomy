@@ -39,17 +39,17 @@
             "type" : "boolean"
          },
          "latitude" : {
-            "type" : "number",
-            "required":true
+            "required" : true,
+            "type" : "number"
          },
          "longitude" : {
-            "type" : "number",
-            "required":true
+            "required" : true,
+            "type" : "number"
          }
       },
       "required" : true,
       "type" : "object"
    },
    "singleton" : true,
-   "version" : 1.08
+   "version" : "1.09"
 }
