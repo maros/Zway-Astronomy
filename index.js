@@ -23,6 +23,12 @@ inherits(Astronomy, AutomationModule);
 
 _module = Astronomy;
 
+// Helper function
+function round(number) {
+    var factor = Math.pow(10, 2);
+    return Math.round(number * factor) / factor;
+}
+
 // ----------------------------------------------------------------------------
 // --- Module instance initialized
 // ----------------------------------------------------------------------------
@@ -119,8 +125,8 @@ Astronomy.prototype.updateCalculation = function () {
     var now         = new Date();
     var position    = SunCalc.getPosition(now, self.config.latitude, self.config.longitude);
     var times       = SunCalc.getTimes(now, self.config.latitude, self.config.longitude);
-    var azimuth     = position.azimuth * 180 / Math.PI + 180;
-    var altitude    = position.altitude * 180 / Math.PI;
+    var azimuth     = round(position.azimuth * 180 / Math.PI + 180);
+    var altitude    = round(position.altitude * 180 / Math.PI);
     var previous    = parseFloat(self.vDev.altitude.get("metrics:level") || altitude);
     var mode;
 
