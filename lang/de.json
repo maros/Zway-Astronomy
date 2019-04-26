@@ -1,8 +1,8 @@
 {
-    "altitude_device" : "Sonnenstand",
-    "azimuth_device" : "Sonnenazimut",
-    "create_azimuth_device_label" : "Azimut Modul anlegen",
+   "altitude_device" : "Sonnenstand",
+   "azimuth_device" : "Sonnenazimut",
    "coordinate_helper" : "In Dezimaler Notation",
+   "create_azimuth_device_label" : "Azimut Modul anlegen",
    "day" : "Tag",
    "latitude_label" : "Geografische Breite",
    "longitude_label" : "Geografische Länge",
